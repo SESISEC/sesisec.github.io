@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件转换成音频</title>
+</head>
+<body>
+    <h1>文件转换成音频</h1>
+    <input type="file" id="fileInput">
+    <button onclick="convertAndPlay()">转换并播放</button>
+    <audio controls id="audioPlayer">
+        Your browser does not support the audio element.
+    </audio>
+    <a id="downloadLink" style="display: none">下载音频</a>
+
+    <script>
+        function convertAndPlay() {
+            var fileInput = document.getElementById('fileInput');
+            var audioPlayer = document.getElementById('audioPlayer');
+            var downloadLink = document.getElementById('downloadLink');
+
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                var arrayBuffer = reader.result;
+                
+                // 在这里进行文件的转换工作，将二进制数据转换为WAV音频格式
+
+                // 以下是一个简单的示例
+                // 这里需要根据实际需求进行音频转换
+
+                var blob = new Blob([arrayBuffer], {type: 'audio/wav'});
+                var url = URL.createObjectURL(blob);
+
+                audioPlayer.src = url;
+                downloadLink.href = url;
+                downloadLink.download = 'audio.wav';
+                downloadLink.style.display = 'block';
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>
